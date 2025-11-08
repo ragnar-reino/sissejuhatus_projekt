@@ -6,6 +6,7 @@
         border: 'tile_border.png',
         normal: 'tile_background_normal.png',
         grass: 'tile_background_grass.png',
+        apple: 'tile_food.png',
     };
 
     function loadImage(src) {
@@ -18,12 +19,13 @@
     }
 
     async function loadSprites() {
-        const [border, normal, grass] = await Promise.all([
+        const [border, normal, grass, apple] = await Promise.all([
             loadImage(SPRITE_PATH + SPRITES.border),
             loadImage(SPRITE_PATH + SPRITES.normal),
             loadImage(SPRITE_PATH + SPRITES.grass),
+            loadImage(SPRITE_PATH + SPRITES.apple),
         ]);
-        return {border, normal, grass}
+        return {border, normal, grass, apple}
     }
 
     function generateBackground(cols, rows, grassChance) {
@@ -67,21 +69,51 @@
         }
     }
 
+    function getRandomplayableTile(cols, rows) {
+        const c = Math.floor(Math.random() * (cols - 2)) + 1;
+        const r = Math.floor(Math.random() * (rows - 2)) + 1;
+        return { c, r};
+    }
+
+    function drawApple(ctx, images, pos) {
+        ctx.drawImage(
+            images.apple,
+            pos.c * TILE_SIZE,
+            pos.r * TILE_SIZE,
+            TILE_SIZE,
+            TILE_SIZE
+        );
+    }
 
     window.addEventListener('DOMContentLoaded', async () => {
         const canvas = document.getElementById("snake-canvas");
+        const button = document.getElementById("respawn-apple");
         
-        const cols = parseInt(canvas.dataset.cols || '20', 10);
+        const cols = parseInt(canvas.dataset.cols, 10);
         const rows = parseInt(canvas.dataset.rows, 10);
 
         canvas.width = cols * TILE_SIZE
         canvas.height = rows * TILE_SIZE
 
         const ctx = canvas.getContext('2d');
-        const images = await loadSprites();
+        ctx.imageSmoothingEnabled = false;
 
-        const background = generateBackground(cols, rows, 0.1)
-        drawGrid(ctx, background, images);
+        const images = await loadSprites();
+        const background = generateBackground(cols, rows, 0.1);
+
+        let applePos = getRandomplayableTile(cols, rows);
+
+        function redrawAll () {
+            drawGrid(ctx, background, images);
+            drawApple(ctx, images, applePos);
+        }
+
+        redrawAll();
+
+        button.addEventListener('click', () => {
+            applePos = getRandomplayableTile(cols, rows);
+            redrawAll();
+        });
 
         window.SnakeBoard = {
             TILE_SIZE,
@@ -89,7 +121,8 @@
             rows,
             images,
             background,
-            redraw: () => drawGrid(ctx, background, images)
+            applePos,
+            redrawAll
         };
     });
 })();
