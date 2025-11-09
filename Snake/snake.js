@@ -1,7 +1,7 @@
 (() => {
     const TILE_SIZE = 32;
     const SPRITE_PATH = './Sprites/';
-    const TICK_MS = 2000;
+    const TICK_MS = 200;
 
     const SPRITES = {
         border: 'tile_border.png',
@@ -177,6 +177,15 @@
         return { c, r};
     }
 
+    function spawnAppleAvoidingSnake(cols, rows, snake) {
+        const occupied = new Set(snake.map(p => `${p.c}, ${p.r}`));
+        let pos;
+        do {
+            pos = getRandomplayableTile(cols, rows);
+        } while (occupied.has(`${pos.c},${pos.r}`));
+        return pos;
+    }
+
     function drawApple(ctx, images, pos) {
         ctx.drawImage(
             images.apple,
@@ -197,6 +206,13 @@
         ArrowLeft: {dx:-1, dy:0}, KeyA: {dx:-1, dy: 0},
         ArrowRight: {dx:1, dy:0}, KeyD: {dx:1, dy: 0},
     };
+
+    function hitsSelf(nextHead, snake) {
+        for (let i = 1; i < snake.length; i++) {
+            if (snake[i].c === nextHead.c && snake[i].r === nextHead.r) return true;
+        }
+        return false;
+    }
 
     window.addEventListener('DOMContentLoaded', async () => {
         const canvas = document.getElementById("snake-canvas");
@@ -227,7 +243,7 @@
         let timer = null;
         let gameOver = false;
 
-        //let applePos = getRandomplayableTile(cols, rows);
+        let applePos = getRandomplayableTile(cols, rows, snake);
 
         window.addEventListener('keydown', (e) => {
             const cand = keyToDir[e.code];
@@ -249,15 +265,29 @@
             const head = snake[snake.length-1];
             const newHead = {c: head.c + dir.dx, r: head.r + dir.dy};
 
+            // äär?
             if (isBorderCell(newHead)) {
                 gameOver = true;
                 clearInterval(timer);
                 redrawAll();
-                console.log('Mang labi');
                 return;
             }
+
+            if (hitsSelf(newHead, snake)) {
+                gameOver = true
+                clearInterval(timer)
+                redrawAll();
+                return;
+            }
+
+
             snake.push(newHead);
-            snake.shift();
+
+            if (newHead.c === applePos.c && newHead.r === applePos.r) {
+                applePos = spawnAppleAvoidingSnake(cols, rows, snake);
+            } else {
+                snake.shift();
+            }
 
             redrawAll();
         }
@@ -265,18 +295,12 @@
         function redrawAll () {
             drawGrid(ctx, background, images);
             drawSnake(ctx, images, snake);
-            //drawApple(ctx, images, applePos);
+            drawApple(ctx, images, applePos);
         }
 
         redrawAll();
 
         timer = setInterval(step, TICK_MS);
-
-        /*button.addEventListener('click', () => {
-            applePos = getRandomplayableTile(cols, rows);
-            redrawAll();
-        });
-        */
 
         window.SnakeBoard = {
             TILE_SIZE,
@@ -284,7 +308,7 @@
             rows,
             images,
             background,
-            //applePos,
+            applePos,
             redrawAll,
             snake,
             get dir(){return dir;},
