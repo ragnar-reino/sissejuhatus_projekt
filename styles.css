@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #222, #444);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    background: #0078ff;
+    padding: 12px 24px;
+    margin: 10px;
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.2s;
+    font-size: 18px;
+}
+
+a:hover {
+    background: #005fcc;
+    transform: scale(1.05);
+}
+
+a:active {
+    transform: scale(0.98);
+}
