@@ -2,17 +2,13 @@ html, body {
     margin: 0; 
     background: #131313; 
     height: 100%;
-    overflow: hidden;
     font-family: 'Orbitron', sans-serif;
 }
 
 #snake-canvas {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -38%);
+    display: block;
     image-rendering: pixelated;
-    margin: 0 auto;
+    margin: 24px auto 20px;
 }
 
 h1 {
