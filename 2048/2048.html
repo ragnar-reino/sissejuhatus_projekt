@@ -8,15 +8,37 @@
   <link rel="stylesheet" href="2048styles.css" />
   <!-- Lae js script fail-->
   <script src="2048script.js"></script>
+  <!-- Fondi laadimine-->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
 
+<body>
   <main>
-    <h1>2048</h1>
-    <hr>
-    <h2>Skoor: <span id="score">0</span></h2>
-    <div id="board">
-      <!--Siia lisatakse scriptiga mängu ruudud-->
+    <nav class="navbar">
+      <div class="logo"><a href="../index.html">Mängukoobas</a></div>
+      <ul class="nav-links">
+        <li><a href="../Snake/snake.html">Snake</a></li>
+        <li><a href="../BlackJack/blackjack.html">Blackjack</a></li>
+        <li><a href="2048.html">2048</a></li>
+      </ul>
+    </nav>
+
+    <h1 class="title">2048</h1>
+    <div class="tutorial">
+      <h2 class="tutorial-title">Kuidas mängida?</h2>
+      <ul class="juhised">
+        <li>Kasuta nooleklahve  ←  ↑  →  ↓  et liigutada numbreid.</li>
+        <li>Igal liikumisel tekib uus number 2 juurde suvaliselt.</li>
+        <li>Kui kaks numbrit on samad ja liiguvad kokku, siis need liidetakse uueks arvuks.</li>
+        <li>Eesmärk on saada number 2048.</li>
+        <li>Edu!</li>
+      </ul>
+    </div>
+    <div class="game">
+      <h2>Skoor: <span id="score">0</span></h2>
+      <div id="board">
+        <!--Siia lisatakse scriptiga mängu ruudud-->
+      </div>
     </div>
   </main>
 </body>

@@ -1,14 +1,17 @@
+// Javascript koodi kirjutamisel oli abiks video: https://www.youtube.com/watch?v=XM2n1gu4530
+
 /* Muutujad  */
 var board;
 var score = 0;
 var rows = 4;
 var columns = 4;
 
+// Lehe laadimisel kutsutakse funktsioon setGame
 window.onload = function() {
     setGame();
 }
 
-/* 2048 üles seadmine */
+/* 2048 üles seadmine, koostab mängu ruudud */
 function setGame() {
     board = [
         [0, 0, 0, 0],
@@ -34,7 +37,7 @@ function setGame() {
     setTwo();
 }
 
-/* vaatab, kas lauas on tühi kast */
+/* vaatab, kas lauas on hetkel tühi kast */
 function hasEmptyTile() {
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
@@ -46,8 +49,7 @@ function hasEmptyTile() {
     return false;
 }
 
-
-
+// Asetab juhuslikult numbri 2 tühjale kastile
 function setTwo() {
     if (!hasEmptyTile()) {
         return;
@@ -83,7 +85,15 @@ function updateTile(tile, num) {
         }
     }
 }
-/* kutsub funktsiooni kui klahv lahti lastakse, mitte peale vajutamisel, et vältida peal hoidmist */
+
+// et nooled akent ei liigutaks
+window.addEventListener("keydown", function(e) {
+  if (["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"].includes(e.key)) {
+    e.preventDefault();
+  }
+});
+
+// kutsub funktsiooni kui klahv lahti lastakse, mitte peale vajutamisel, et vältida peal hoidmist
 document.addEventListener("keyup", (e) => {
     let rowBuffer = board.map(function(arr) {
         return arr.slice();
@@ -106,7 +116,6 @@ document.addEventListener("keyup", (e) => {
     console.log(rowBuffer.toString());
     console.log(board.toString());
     if (rowBuffer.toString() == board.toString() && !hasEmptyTile()) {
-        console.log("game over");
         if (document.getElementById("board").children.length <= 16) {
             let gameOverMessage = document.createElement("h2");
             gameOverMessage.innerText = "Mäng läbi!";
@@ -142,7 +151,7 @@ function slide(row) {
     return row;
 }
 
-/* lükka vasakule */
+// lükka vasakule 
 function slideLeft() {
     for (let r = 0; r < rows; r++) {
         let row = board[r];
@@ -157,7 +166,7 @@ function slideLeft() {
     }
 }
 
-/* lükka paremale, saab kasutada vasakule lükkamise funktsiooni kui pöörata rea numbrid ümber, lükata kokku ja siis uuesti ümber pöörata */
+// lükka paremale, saab kasutada vasakule lükkamise funktsiooni kui pöörata rea numbrid ümber, lükata kokku ja siis uuesti ümber pöörata
 function slideRight() {
     for (let r = 0; r < rows; r++) {
         let row = board[r];
@@ -190,7 +199,7 @@ function slideUp() {
     }
 }
 
-/* sama loogika, mis vasakule ja paremale lükkamisel, rea ümber pöörates saab kasutada sama funktsiooni */
+// sama loogika, mis vasakule ja paremale lükkamisel, rea ümber pöörates saab kasutada sama funktsiooni
 function slideDown() {
     for (let c = 0; c < columns; c++) {
         let row = [board[0][c], board[1][c], board[2][c], board[3][c]];

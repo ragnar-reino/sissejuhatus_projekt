@@ -1,10 +1,71 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Orbitron', sans-serif;
     text-align: center;
+    background-color: #131212de;
+    color: #00ff6a;
+    margin-bottom: 200px;
 }
 
-hr {
-    width: 500px;
+/* Navigatsiooniriba */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5084df;
+    padding: 15px 30px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #00ff6a;
+    font-size: 20px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+}
+
+.nav-links a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 20px;
+    color: #00ff6a;
+    transition: transform 0.2s ease;
+}
+
+.nav-links a:hover {
+  transform: scale(1.08); /* slight zoom */
+}
+/* Navriba lõpp */
+
+.title {
+    margin-top: 60px;
+    text-shadow: 0 0 10px #00ff6a, 0 0 10px #00ff6a;
+}
+
+.tutorial {
+    text-align: left;
+    width: 475px;
+    margin: 5px auto;
+    background-color: #222;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 60px;
+}
+
+.tutorial-title {
+    margin-left: 20px;
+}
+
+.juhised li{
+    margin-bottom: 10px;
 }
 
 #board {
