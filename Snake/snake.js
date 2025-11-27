@@ -178,7 +178,7 @@
     }
 
     function spawnAppleAvoidingSnake(cols, rows, snake) {
-        const occupied = new Set(snake.map(p => `${p.c}, ${p.r}`));
+        const occupied = new Set(snake.map(p => `${p.c},${p.r}`));
         let pos;
         do {
             pos = getRandomplayableTile(cols, rows);
@@ -216,7 +216,8 @@
 
     window.addEventListener('DOMContentLoaded', async () => {
         const canvas = document.getElementById("snake-canvas");
-        //const button = document.getElementById("respawn-apple");
+        const skoor = document.getElementById("skoor")
+        const respawnButton = document.getElementById("respawn");
         
         const cols = parseInt(canvas.dataset.cols, 10);
         const rows = parseInt(canvas.dataset.rows, 10);
@@ -242,8 +243,16 @@
         let queuedDir = dir;
         let timer = null;
         let gameOver = false;
+        let score = 0
+
+        function updateScore() {
+            if (skoor) {
+                skoor.textContent = `Skoor: ${score}`;
+            }
+        }
 
         let applePos = getRandomplayableTile(cols, rows, snake);
+        updateScore();
 
         window.addEventListener('keydown', (e) => {
             const cand = keyToDir[e.code];
@@ -284,12 +293,41 @@
             snake.push(newHead);
 
             if (newHead.c === applePos.c && newHead.r === applePos.r) {
+                score++;
+                updateScore();
                 applePos = spawnAppleAvoidingSnake(cols, rows, snake);
             } else {
                 snake.shift();
             }
 
             redrawAll();
+        }
+
+        function resetGame() {
+            snake.length = 0;
+            snake.push(
+                {c: midC - 2, r: midR},
+                {c: midC - 1, r: midR},
+                {c: midC, r: midR}
+            );
+            dir = {dx: 1, dy: 0};
+            queuedDir = dir
+            applePos = spawnAppleAvoidingSnake(cols, rows, snake);
+            score = 0;
+            updateScore();
+            gameOver = false;
+
+            clearInterval(timer);
+            timer = setInterval(step, TICK_MS);
+            redrawAll();
+        }
+
+        if (respawnButton) {
+            respawnButton.addEventListener('click', () => {
+                if (gameOver) {
+                    resetGame();
+                }
+            });
         }
 
         function redrawAll () {
@@ -320,6 +358,8 @@
                 clearInterval(timer);
             },
             step,
+            get score() {return score;},
+            resetGame,
         };
     });
 })();
