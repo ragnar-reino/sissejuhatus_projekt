@@ -1,6 +1,10 @@
 html, body {
     margin: 0; 
+<<<<<<< HEAD
     background: #131313; 
+=======
+    background: #111; 
+>>>>>>> 9918c258d50185d3e2d85e614086f0d35db7bc3a
     height: 100%;
     overflow: hidden;
     font-family: 'Orbitron', sans-serif;
@@ -10,7 +14,7 @@ html, body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -35%);
     image-rendering: pixelated;
     margin: 0 auto;
 }
@@ -20,6 +24,34 @@ h1 {
     justify-content: center;
     color: #fff;
 }
+
+#skoor {
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+}
+
+#rida {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+#respawn {
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: transparent;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+
+#respawn:hover {
+    transform: scale(1.1);
+}
+
 /* Navigatsiooniriba */
 .navbar {
     display: flex;
