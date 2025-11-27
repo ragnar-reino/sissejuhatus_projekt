@@ -1,3 +1,5 @@
+// Koodi kirjutas täies mahus Imre Võsu
+
 (() => {
     const TILE_SIZE = 32;
     const SPRITE_PATH = './Sprites/';

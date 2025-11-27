@@ -1,4 +1,5 @@
 // Javascript koodi kirjutamisel oli abiks video: https://www.youtube.com/watch?v=XM2n1gu4530
+// Koodi kirjutas täies mahus Kristian Kõivastik
 
 /* Muutujad  */
 var board;

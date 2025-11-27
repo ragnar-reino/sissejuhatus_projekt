@@ -1,3 +1,5 @@
+// Koodi kirjutas täies mahus Ragnar Reino
+
 let suits = ["H", "C", "D", "S"];
 let values = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"];
 let deck = [];
@@ -11,6 +13,7 @@ const textArea1 = document.getElementById("text-area1");
 const textArea2 = document.getElementById("text-area2");
 const textArea3 = document.getElementById("text-area3");
 
+// Koosta kaardipakk
 function createDeck() {
     for (let i = 0; i < values.length; i++) {
         for (let y = 0; y < suits.length; y++) {
@@ -27,6 +30,7 @@ function createDeck() {
     }
 }
 
+// Sega kaardid
 function shuffle() {
     for (let i = 0; i < 1000; i++) {
         let location1 = Math.floor(Math.random() * deck.length);
@@ -38,6 +42,7 @@ function shuffle() {
     }
 }
 
+// Jaga kaardid välja ja näita stardikätt
 function handLayout() {
     for (let i = 0; i < 2; i++) {
         playerHand.push(deck.pop());
@@ -60,6 +65,7 @@ function handLayout() {
     }
 }
 
+// Annab mängijale uue kaardi ja kontrollib üle 21 minekut
 function hit() {
     let sumPlayer = playerHand.reduce((s, card) => {return s + card.Weight}, 0);
 
@@ -83,6 +89,7 @@ function hit() {
     }
 }
 
+// Diiler võtab kaarte kuni 17ni, siis kontrollib võitjat
 function stay() {
     let sumDealer = dealerHand.reduce((s, card) => {return s + card.Weight}, 0);
 
@@ -112,6 +119,7 @@ function stay() {
     }
 }
 
+// Kontrollib A kaarte
 function aTester() {
     let sumDealer = dealerHand.reduce((s, card) => {return s + card.Weight}, 0);
     let sumPlayer = playerHand.reduce((s, card) => {return s + card.Weight}, 0);
@@ -145,6 +153,7 @@ function aTester() {
     }
 }
 
+// Valib ja näitab mängu võitjat
 function gameWinner() {
     let sumDealer = dealerHand.reduce((s, card) => {return s + card.Weight}, 0);
     let sumPlayer = playerHand.reduce((s, card) => {return s + card.Weight}, 0);
@@ -166,6 +175,7 @@ function gameWinner() {
     stayVar.disabled = true;
 };
 
+// Puhastab ekraani ja resetib kaardipaki ja käed
 function clear() {
     textArea1.innerText = "";
     textArea2.innerText = "";
@@ -175,6 +185,7 @@ function clear() {
     dealerHand = [];
 }
 
+// Alustab uut mängu
 function startGame() {
     clear();
     createDeck();
