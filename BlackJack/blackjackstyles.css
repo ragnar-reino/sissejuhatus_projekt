@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #5084df;
+    background-color: #0f0f0f;
     padding: 15px 30px;
 }
 
@@ -38,7 +38,7 @@
 /* Navriba lõpp */
 
 body {
-    background-color: #0b0b0b;
+    background-color: #131313;
     color: #f1f1f1;
     /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
     font-family: 'Orbitron', sans-serif;
@@ -93,22 +93,3 @@ p {
     font-size: 1.1em;
     margin: 15px 0;
 }
-
-.back-button {
-    display: block;
-    margin: 30px auto;
-    color: #00ff6a;
-    text-decoration: none;
-    border: 1px solid #00ff6a;
-    padding: 10px 20px;
-    border-radius: 8px;
-    width: fit-content;
-    transition: all 0.3s ease;
-}
-
-.back-button:hover {
-    background-color: #00ff6a;
-    color: #000;
-    box-shadow: 0 0 10px #00ff6a;
-}
-
